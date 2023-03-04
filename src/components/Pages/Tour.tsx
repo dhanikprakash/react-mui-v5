@@ -1,15 +1,59 @@
-import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select, ThemeProvider, Typography, createTheme } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import { purple } from "@mui/material/colors";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: '#81c784',
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: '#11cb5f',
+    },
+  },
+  typography: {
+    fontFamily: 'Raleway, Arial',
+    fontSize:12,
+  },
+  components:{
+    MuiSvgIcon:{
+      styleOverrides:{
+          root:{
+            color:"blueviolet",
+            ":hover": {cursor: "pointer"}
+          }
+      }
+    },
+    MuiButton: {
+      variants: [
+        {
+          props: { variant: 'outlined' },
+          style: {
+            textTransform: 'none',
+            border: `2px dashed blue`,
+          },
+        },
+        {
+          props: { variant: 'outlined', color: 'secondary' },
+          style: {
+            border: `4px dashed blue`,
+          },
+        },
+      ],
+    },
+  }
+});
 
 const Tour = () => {
   return (<Container>
-    <div>Tour</div>
-    <Grid container>
+
+    <Grid marginTop={10} container>
       <Grid item xs={3}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Age</InputLabel>
           <Select
             variant="standard"
             labelId="demo-simple-select-label"
@@ -24,9 +68,14 @@ const Tour = () => {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={3}></Grid>
       <Grid item xs={3}>
-        <AccessAlarmIcon />
+        <ThemeProvider theme={theme}>
+          <Button variant="outlined" sx={{height:40}} >Secondary</Button>
+          <Typography variant="body1">This is a test message </Typography>
+          <AccessAlarmIcon  />
+        </ThemeProvider>
+      </Grid>
+      <Grid item xs={3}>
       </Grid>
     </Grid>
   </Container >);
